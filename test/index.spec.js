@@ -17,17 +17,8 @@ const nsq = {
       }
     };
   },
-  reader: () => {
-    return {
-      on: (event, cb) => {
-        if (event === 'ready') {
-          return cb();
-        }
-        else if (event === 'message') {
-          return cb(nsq.messages.pop());
-        }
-      }
-    };
+  nsq: {
+    reader: () => {}
   }
 };
 
@@ -57,15 +48,8 @@ describe('NSQ Plugin', () => {
     expect(server.plugins).to.include(['hapi-nsqjs']);
     done();
   });
-  it('it should expose nsq reader & writer', (done) => {
-    expect(server.plugins['hapi-nsqjs']).to.include(['nsqReader', 'nsqWriter']);
+  it('it should expose nsq writer', (done) => {
+    expect(server.plugins['hapi-nsqjs']).to.include(['writer']);
     done();
-  });
-  it('Should be able to publish a message', (done) => {
-    server.plugins['hapi-nsqjs'].nsqWriter.publish('events', 'foo');
-    server.plugins['hapi-nsqjs'].nsqReader.on('message', (msg) => {
-      expect(msg).to.equal('foo');
-      done();
-    });
   });
 });
