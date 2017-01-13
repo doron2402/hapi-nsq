@@ -1,0 +1,46 @@
+{
+  "name": "hapi-nsqjs",
+  "version": "0.1.0",
+  "description": "Hapi.js plugin to support nsq",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "lab --colors -p -v -l --ignore __core-js_shared__",
+    "lint": "./node_modules/.bin/eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doron2402/hapi-nsq.git"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "keywords": [
+    "NSQ",
+    "nsq.js",
+    "jsqjs",
+    "hapijs",
+    "hapi-plugin",
+    "plugin"
+  ],
+  "author": "Doron Segal doron@segaldoron.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doron2402/hapi-nsq/issues"
+  },
+  "homepage": "https://github.com/doron2402/hapi-nsq#readme",
+  "dependencies": {
+    "hoek": "^4.1.0",
+    "joi": "^10.1.0",
+    "nsq.js": "^0.14.6"
+  },
+  "devDependencies": {
+    "code": "^4.0.0",
+    "eslint": "^3.13.1",
+    "eslint-config-hapi": "^10.0.0",
+    "hapi": "^16.1.0",
+    "lab": "^11.2.2",
+    "pre-commit": "^1.2.2",
+    "proxyquire": "^1.7.10"
+  }
+}
