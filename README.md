@@ -10,7 +10,7 @@ If you're using Hapi.js and want to use NSQ this plugin can help you.
 
 # Example
 
-Initializing the plugin
+Initializing the plugin (NSQD)
 ```javascript
 server = new Hapi.Server();
 server.connection();
@@ -19,6 +19,24 @@ server.register([{
   options: {
     nsqPort: 4150,
     nsqHost: '127.0.0.1'
+  }
+}], (err) => {
+  if (err) {
+    throw err;
+  }
+  //server is running
+});
+
+```
+
+Initializing the plugin (NSQ LOOKUP)
+```javascript
+server = new Hapi.Server();
+server.connection();
+server.register([{
+  register: require('hapi-nsqjs'),
+  options: {
+    nsqLookup: ['10.0.0.1:9988','10.0.0.2:9988']
   }
 }], (err) => {
   if (err) {
