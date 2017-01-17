@@ -59,7 +59,33 @@ request.server.plugins['hapi-nsqjs'].writer.publish(TOPIC, ['foo', 'bar', 'baz']
 request.server.plugins['hapi-nsqjs'].writer.publish('events', 'some message here');
 ```
 
-Subscribe
+
+Subscribe using the module
+```javascript
+// using nsq.js
+exports.register = function (server, options, next) {
+  const reader = server.plugins['hapi-nsqjs'].nsq.reader({
+    nsqlookupd: Config.get('/nsq/lookupd'), // you can use the `nsqd: ['0.0.0.0:4150'],`
+    maxInFlight: Config.get('/nsq/maxInFlight'),
+    topic: Config.get('/nsq/topic'),
+    channel: Config.get('/nsq/channel')
+  });
+
+  reader.on('message', (msg) => {
+    console.log(msg.toString());
+    setTimeout(() => {
+      msg.finish();
+    }, 200);
+  });
+
+  reader.on('ready', () => {
+    console.log('nsq is ready');
+    next();
+  });
+});
+```
+
+Subscribe Without using the module
 ```javascript
 // using nsq.js
 var nsq = require('nsq.js');
